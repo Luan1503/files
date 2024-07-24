@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora 20%</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .calculator {
+        margin: 20px auto;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    input[type="text"] {
+        width: calc(100% - 20px); /* Ajuste para deixar espaço para o botão */
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #ff0000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #12b304;
+    }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="inputNumber" placeholder="Insira um número" onkeydown="if(event.keyCode==13) calcular()">
+    <button onclick="calcular()">Calcular +20%/2</button>
+    <input type="text" id="resultado" readonly>
+</div>
+
+<script>
+function calcular() {
+    var inputNumber = document.getElementById('inputNumber').value;
+    // Remover todos os pontos e vírgulas da entrada
+    var cleanInput = inputNumber.replace(/[.,]/g, '');
+    // Remover os dois últimos zeros após a vírgula
+    cleanInput = cleanInput.replace(/(\d+\.\d+?)0{2}\b/, '$1');
+    // Converter para número e verificar se é válido
+    var inputNumberValue = parseFloat(cleanInput);
+    if (!isNaN(inputNumberValue)) {
+        // Arredondar para o número inteiro mais próximo
+        var roundedNumber = Math.round(inputNumberValue);
+        // Calcular o resultado
+        var resultado = Math.floor(((roundedNumber + (roundedNumber * 0.2)) / 2));
+        // Exibir o resultado
+        var resultElement = document.getElementById('resultado');
+        resultElement.value = resultado;
+        resultElement.select();
+    } else {
+        document.getElementById('resultado').value = "Por favor, insira um número válido.";
+    }
+}
+</script>
+
+</body>
+</html>
